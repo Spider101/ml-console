@@ -8,9 +8,12 @@ const default_state = {
 export default (state=default_state, action) => {
     switch(action.type) {
         case 'FETCH_PROJECTS_PENDING':
-            return { ...state, fetching: true }
-        case 'FETCH_PROJECTS_FULFILLED':
             return { 
+                ...state, 
+                fetching: true 
+            }
+        case 'FETCH_PROJECTS_FULFILLED':
+           return { 
                 ...state, 
                 projects: action.payload, 
                 fetched: true,
@@ -23,5 +26,6 @@ export default (state=default_state, action) => {
             }
         default:
             return { ...state }
+        }
     }
 }
