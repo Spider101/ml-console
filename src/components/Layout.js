@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
+import ProjectListWrapper from '../containers/ProjectListWrapper'
 
-export default class Layout extends Component{
-    render(){
-        return null;
-    }
-}
+export default () => (
+	<ProjectListWrapper />
+)
