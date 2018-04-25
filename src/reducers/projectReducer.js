@@ -15,7 +15,7 @@ export default (state=default_state, action) => {
         case 'FETCH_PROJECTS_FULFILLED':
            return { 
                 ...state, 
-                projects: action.payload, 
+                projects: action.payload.data, 
                 fetched: true,
                 fetching: false
             }
