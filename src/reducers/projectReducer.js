@@ -26,6 +26,5 @@ export default (state=default_state, action) => {
             }
         default:
             return { ...state }
-        }
     }
 }
