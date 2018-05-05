@@ -1,8 +1,10 @@
 const default_state = {
-    projects: [],
+    items: [],
+    schema: [],
     fetching: false,
     fetched: false,
-    error: null
+    error: null,
+    isFormVisible: false
 } 
 
 export default (state=default_state, action) => {
@@ -15,7 +17,8 @@ export default (state=default_state, action) => {
         case 'FETCH_PROJECTS_FULFILLED':
            return { 
                 ...state, 
-                projects: action.payload.data, 
+                items: action.payload.data.splice(1),
+               	schema: action.payload.data[0],
                 fetched: true,
                 fetching: false
             }
@@ -23,6 +26,14 @@ export default (state=default_state, action) => {
             return {
                 ...state,
                 error: action.payload
+            }
+        case 'ADD_PROJECT_FULFILLED':
+            return {
+                ...state,
+                items: [
+                    ...state.items,
+                    action.payload.data
+                ]
             }
         default:
             return { ...state }
