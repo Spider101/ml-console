@@ -14,8 +14,7 @@ class ProjectFormWrapper extends Component{
     constructor(){
         super()
         this.state = {
-            isFormVisible: false,
-            isFormValid: false,
+            isValid: false,
             form: {}
         }
     }
@@ -25,7 +24,9 @@ class ProjectFormWrapper extends Component{
         if(Object.keys(schema_clone).length > 0 ){
             
             for(let key in schema_clone){
-                schema_clone[key].value = ''
+                if(!schema_clone.hasOwnProperty(key)){
+				   schema_clone[key].value = ''
+				}
             }    
             
             return { form: schema_clone }
@@ -44,13 +45,7 @@ class ProjectFormWrapper extends Component{
         })
     }
 
-	toggleVisibilityFlag = () => {
-        this.setState({
-            isFormVisible: !this.state.isFormVisible
-        })
-    }
-
-    validateForm = (form_state) => {
+	validateForm = (form_state) => {
         for(let key in form_state){
             const field = form_state[key]
             if(field.type !== 'hidden' && (field.value == null || field.value.length === 0)){
@@ -68,18 +63,15 @@ class ProjectFormWrapper extends Component{
                form_data[key] = this.state.form[key].value
             }
 			form_data['id'] = faker.random.uuid()
-			console.log(form_data)
             this.props.addProject(form_data)
         }
     }
     
-    render(){       
-        return <ProjectForm isHidden={this.state.isFormVisible}
-        			isValid={this.state.isFormValid}
-        			formState={this.state.form}
-                    handleSubmit={this.handleFormSubmit}
-                    handleChange={this.handleInputChange}
-                    toggleForm={this.toggleVisibilityFlag}/>
+    render(){
+		const form_component = <ProjectForm { ...this.state }
+								handleSubmit={ this.handleFormSubmit }
+								handleChange={ this.handleInputChange }/>
+        return this.props.isHidden && form_component
 		
     }
 }

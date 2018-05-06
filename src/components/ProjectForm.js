@@ -1,19 +1,19 @@
 import React from 'react'
 
-const ProjectForm = ({ formState, isHidden, isValid, handleChange, 
+	const ProjectForm = ({ form, isHidden, isValid, handleChange, 
 					  handleSubmit, toggleForm }) => {
-	const mappedFormFields = Object.keys(formState).map(
+	const mappedFormFields = Object.keys(form).map(
 		(k, _idx) => (
 			<input key={_idx}
-                type={formState[k].type} 
+                type={form[k].type} 
                 name={k}
                 onChange={handleChange}
-                value={formState[k].value} 
+                value={form[k].value} 
 				placeholder={k}/>
 		)
 	)
 	
-	const form_template = (
+	return (
 		<div>
 			<h3>Add Project</h3>
 			<form onSubmit={ handleSubmit }>
@@ -21,14 +21,6 @@ const ProjectForm = ({ formState, isHidden, isValid, handleChange,
 				<input type="submit" value="Submit" 
 					disabled={ isValid ? "" : "disabled" } />
 			</form>
-		</div>
-	)
-	return (
-		<div>
-			<button onClick={ toggleForm }>
-				{ isHidden ? 'Close Form' : 'Add Form'}
-			</button>
-			{ isHidden && form_template }
 		</div>
 	)
 }
