@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Project from './Project'
 
-const ProjectList = ({ items }) => {
+const ProjectList = ({ items, handleClick, buttonText }) => {
 	const project_list_template = (
 		<div>
 			<h3> Projects </h3>
@@ -20,6 +20,7 @@ const ProjectList = ({ items }) => {
 	const template = (
 		<div>
 			{items.length > 0 ? project_list_template : loading_template}
+			<button onClick={handleClick}>{buttonText}</button>		
 		</div>
 	)
 	return template

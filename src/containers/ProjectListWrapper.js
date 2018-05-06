@@ -11,14 +11,31 @@ const mapDispatchToProps = dispatch => ({
 })
 
 class ProjectListWrapper extends Component{
+	constructor(){
+		super()
+		this.state = {
+			isFormVisible: false
+		}
+	}
+	
 	componentWillMount(){
         this.props.fetchProjects()
     }
+	
+	toggleFormVisibility = () => {
+		this.setState({
+			isFormVisible: !this.state.isFormVisible
+		})
+	}
+	
    	render(){
+		const addButtonText = this.state.isFormVisible ? "Close" : "Add Project"
 		return (
             <div>
-				<ProjectList {...this.props}/>
-				<ProjectFormWrapper/>
+				<ProjectList { ...this.props }
+					handleClick={ () => this.toggleFormVisibility() }
+					buttonText={ addButtonText }/>
+				<ProjectFormWrapper isHidden={ this.state.isFormVisible }/>
 			</div>
 		)
     }
