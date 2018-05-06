@@ -1,19 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Project from './Project'
 
-const ProjectList = ({ items, handleClick, buttonText }) => {
+const ProjectList = ({ items, buttonText, handleDelete, 
+					  handleClick  }) => {
+	const mappedItems = items.map((item, _idx) => (
+							<li key={_idx}>
+								<h3>
+									<a href={item.gh_url}>{item.name}</a>
+								</h3>
+								<p>{item.descr}</p>
+								<button onClick={() => handleDelete(item.id)}>
+									Delete
+								</button>
+							</li>
+						))
 	const project_list_template = (
 		<div>
 			<h3> Projects </h3>
-			<ul>
-				{
-					items.map(
-						item => <Project key={item.id}
-								{...item} />
-					)
-				}
-			</ul>
+			<ul> { mappedItems } </ul>
 		</div>
 	)
 	const loading_template = <h3>Loading Projects ..</h3>
