@@ -8,6 +8,7 @@ const mapStateToProps = state => ({ ...state.projects })
 
 const mapDispatchToProps = dispatch => ({
     fetchProjects : () => dispatch(project.fetch_projects()),
+	deleteProject: id => dispatch(project.delete_project(id))
 })
 
 class ProjectListWrapper extends Component{
@@ -34,6 +35,7 @@ class ProjectListWrapper extends Component{
             <div>
 				<ProjectList { ...this.props }
 					handleClick={ () => this.toggleFormVisibility() }
+					handleDelete={ id => this.props.deleteProject(id) }
 					buttonText={ addButtonText }/>
 				<ProjectFormWrapper isHidden={ this.state.isFormVisible }/>
 			</div>
