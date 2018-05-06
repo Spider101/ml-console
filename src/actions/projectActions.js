@@ -4,7 +4,8 @@ const server_uri = 'http://react-sandbox-banerjeeabhimanyu3120262.codeanyapp.com
 
 const api_endpoints = {
     'get_projects': '/projects',
-    'add_project': '/projects'
+    'add_project': '/projects',
+    'delete_project': '/projects'
 }
 
 export const fetch_projects = () => ({
@@ -15,4 +16,9 @@ export const fetch_projects = () => ({
 export const add_project = project => ({
     type: 'ADD_PROJECT',
     payload: axios.post(server_uri + api_endpoints.add_project, project)
+})
+
+export const delete_project = id => ({
+    type: 'DELETE_PROJECT',
+    payload: axios.delete(server_uri + api_endpoints.delete_project + `/${id}`)
 })

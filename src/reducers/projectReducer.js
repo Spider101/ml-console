@@ -35,6 +35,12 @@ export default (state=default_state, action) => {
                     action.payload.data
                 ]
             }
+        case 'DELETE_PROJECT_FULFILLED':
+            const itemId = action.payload.request.responseURL.split('/').pop()
+            return {
+                ...state,
+                items: [...state.items ].filter(item => item.id !== itemId)
+            }
         default:
             return { ...state }
     }
