@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ProjectList = ({ items, buttonText, handleDelete, 
-					  handleClick  }) => {
+const ProjectList = ({ items, buttonText, handleEdit, 
+					  handleDelete, handleClick  }) => {
 	const mappedItems = items.map((item, _idx) => (
 							<li key={_idx}>
 								<h3>
 									<a href={item.gh_url}>{item.name}</a>
 								</h3>
 								<p>{item.descr}</p>
+								<button onClick={() => handleEdit(item.id)}>
+									Edit
+								</button>	
 								<button onClick={() => handleDelete(item.id)}>
 									Delete
 								</button>
