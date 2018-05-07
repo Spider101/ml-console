@@ -4,7 +4,7 @@ const default_state = {
     fetching: false,
     fetched: false,
     error: null,
-    isFormVisible: false
+    itemInEdit: []
 } 
 
 export default (state=default_state, action) => {
@@ -35,11 +35,24 @@ export default (state=default_state, action) => {
                     action.payload.data
                 ]
             }
+        case 'INIT_EDIT':
+            return {
+                ...state,
+                itemInEdit: [ ...state.items ].filter(item => item.id === action.payload)
+            }
+        case 'UPDATE_PROJECT_FULFILLED':
+            const updatedItem = action.payload.data
+            return {
+            	...state,
+                items: [ ...state.items ].map(item => (
+                	item.id === updatedItem.id ? updatedItem : item
+                ))
+            }
         case 'DELETE_PROJECT_FULFILLED':
             const itemId = action.payload.request.responseURL.split('/').pop()
             return {
                 ...state,
-                items: [...state.items ].filter(item => item.id !== itemId)
+                items: [ ...state.items ].filter(item => item.id !== itemId)
             }
         default:
             return { ...state }
