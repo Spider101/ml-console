@@ -1,7 +1,7 @@
 import React from 'react'
 
-	const ProjectForm = ({ form, isHidden, isValid, handleChange, 
-					  handleSubmit, toggleForm }) => {
+const ProjectForm = ({ form, isValid, handleChange, heading,
+					  handleCancel, handleSubmit, toggleForm }) => {
 	const mappedFormFields = Object.keys(form).map(
 		(k, _idx) => (
 			<input key={_idx}
@@ -15,12 +15,16 @@ import React from 'react'
 	
 	return (
 		<div>
-			<h3>Add Project</h3>
-			<form onSubmit={ handleSubmit }>
+			<h3>{ heading }</h3>
+			<div>
 				{mappedFormFields}
-				<input type="submit" value="Submit" 
-					disabled={ isValid ? "" : "disabled" } />
-			</form>
+				<button onClick={ handleSubmit } 
+					disabled={ isValid ? "" : "disabled" } > 
+					Submit 
+				</button>
+				<button onClick={ handleCancel }> Cancel </button>
+				<p>{ isValid }</p>
+			</div>
 		</div>
 	)
 }

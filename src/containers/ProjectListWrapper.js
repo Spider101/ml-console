@@ -8,6 +8,7 @@ const mapStateToProps = state => ({ ...state.projects })
 
 const mapDispatchToProps = dispatch => ({
     fetchProjects : () => dispatch(project.fetch_projects()),
+	initEditMode: id => dispatch(project.init_edit_mode(id)),
 	deleteProject: id => dispatch(project.delete_project(id))
 })
 
@@ -29,15 +30,25 @@ class ProjectListWrapper extends Component{
 		})
 	}
 	
+	prepEditForm = id =>{
+		this.props.initEditMode(id)
+		this.setState({
+			isFormVisible: true
+		})
+	}
+	
    	render(){
 		const addButtonText = this.state.isFormVisible ? "Close" : "Add Project"
+		const formHeading = this.props.itemInEdit.length > 0 ? "Edit" : "Add"
 		return (
             <div>
 				<ProjectList { ...this.props }
 					handleClick={ () => this.toggleFormVisibility() }
+					handleEdit={ id => this.prepEditForm(id) }
 					handleDelete={ id => this.props.deleteProject(id) }
 					buttonText={ addButtonText }/>
-				<ProjectFormWrapper isHidden={ this.state.isFormVisible }/>
+				<ProjectFormWrapper headerText={ `${formHeading} Project` }
+					isHidden={ this.state.isFormVisible }/>
 			</div>
 		)
     }

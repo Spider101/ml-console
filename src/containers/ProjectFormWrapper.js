@@ -7,7 +7,8 @@ import * as project from '../actions/projectActions'
 const mapStateToProps = state => ({ ...state.projects })
 
 const mapDispatchToProps = dispatch => ({
-    addProject: newProject => dispatch(project.add_project(newProject))
+    addProject: newProject => dispatch(project.add_project(newProject)),
+    updateProject: editedProject => dispatch(project.update_project(editedProject))
 })
 
 class ProjectFormWrapper extends Component{
@@ -21,15 +22,23 @@ class ProjectFormWrapper extends Component{
     
     static getDerivedStateFromProps(nextProps, prevState){
         let schema_clone = {...nextProps.schema}
-		if(Object.keys(schema_clone).length > 0 ){
-            
-            for(let key in schema_clone){
-                if(!schema_clone[key].hasOwnProperty('value')){
-				   schema_clone[key].value = ''
+		const schema_keys = Object.keys(schema_clone),
+			  form_keys = Object.keys(prevState.form)
+		
+		if(schema_keys.length > 0){
+			if(nextProps.itemInEdit.length > 0){
+				const itemInEdit = nextProps.itemInEdit[0]
+				for(const key in schema_clone){
+					schema_clone[key].value = itemInEdit[key]
 				}
-            }    
-            
-            return { form: schema_clone }
+				return { form: schema_clone, isValid: true }
+			} else if(form_keys.length === 0){
+				for(const key in schema_clone){
+					schema_clone[key].value = ''
+				}
+				return { form: schema_clone }
+			}
+			return null
         } else{
             return null
         }
@@ -57,23 +66,40 @@ class ProjectFormWrapper extends Component{
         return true
     }
     
-    handleFormSubmit = (evt) => {
-        evt.preventDefault()
+    handleFormCancel = () => {
+		let form_clone = { ...this.state.form }
+		for(const key in form_clone){
+			form_clone[key].value = ''
+		}
+		this.setState({ form: form_clone, isValid: false })	
+	}
+	
+	handleFormSubmit = () => {
         if(this.state.isValid){
-            const form_data = {}
+            let form_data = {}
             for(let key in this.state.form){
                form_data[key] = this.state.form[key].value
             }
-			form_data['id'] = faker.random.uuid()
-            this.props.addProject(form_data)
+            
+			if(this.props.itemInEdit.length > 0){
+				this.props.updateProject(form_data)
+			} else {
+				form_data['id'] = faker.random.uuid()
+				this.props.addProject(form_data)
+			}
         }
     }
     
-    render(){
-		const form_component = <ProjectForm { ...this.state }
+	render(){
+		const {
+			isHidden,
+			headerText
+		} = this.props
+		const form_component = <ProjectForm { ...this.state } heading={headerText}
+								handleCancel={ this.handleFormCancel }
 								handleSubmit={ this.handleFormSubmit }
 								handleChange={ this.handleInputChange }/>
-        return this.props.isHidden && form_component
+        return isHidden && form_component
 		
     }
 }
