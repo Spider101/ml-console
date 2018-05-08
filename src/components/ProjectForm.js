@@ -1,36 +1,61 @@
 import React from 'react'
+import TextField from 'material-ui/TextField'
+import Button from 'material-ui/Button'
+import Typography from 'material-ui/Typography'
 
-const ProjectForm = ({ formState, isHidden, isValid, handleChange, 
-					  handleSubmit, toggleForm }) => {
-	const mappedFormFields = Object.keys(formState).map(
-		(k, _idx) => (
-			<input key={_idx}
-                type={formState[k].type} 
-                name={k}
-                onChange={handleChange}
-                value={formState[k].value} 
-				placeholder={k}/>
-		)
-	)
+import { withStyles } from 'material-ui/styles'
+
+const styles = theme => ({
+	textField: {
+		marginLeft: theme.spacing.unit,
+		marginRight: theme.spacing.unit,
+		width: '100%',
+	},
+	paper: {
+		position: 'absolute',
+		width: theme.spacing.unit * 50,
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing.unit * 4,
+		top:'30%',
+		left: '30%',
+	},
+	form_btn: {
+		margin: theme.spacing.unit
+	}
+})
+
+const ProjectForm = props => {
+	const {
+		classes,
+		form, 
+		isValid, 
+		handleChange, 
+		heading,
+		handleCancel, 
+		handleSubmit, 
+	} = props
 	
-	const form_template = (
-		<div>
-			<h3>Add Project</h3>
-			<form onSubmit={ handleSubmit }>
-				{mappedFormFields}
-				<input type="submit" value="Submit" 
-					disabled={ isValid ? "" : "disabled" } />
-			</form>
-		</div>
-	)
+	const form_keys = Object.keys(form).filter(k => form[k].type !== 'hidden')
+	
 	return (
-		<div>
-			<button onClick={ toggleForm }>
-				{ isHidden ? 'Close Form' : 'Add Form'}
-			</button>
-			{ isHidden && form_template }
+		<div className={ classes.paper }>
+			<Typography align='center' 
+				variant='title'>{ heading }</Typography>
+			{form_keys.map((k, _idx) => (
+				<TextField key={_idx} id={ k } label={ form[k].label } 
+					className={ classes.textField } value={ form[k].value } 
+					required={ form[k].required } type={ form[k].type }
+					onChange={ handleChange }/>
+			))}
+			<Button onClick={ handleSubmit } color='primary'
+				variant='raised' className={classes.form_btn} 
+				disabled={ !isValid } > Submit </Button>
+			<Button onClick={ handleCancel }
+				className={classes.form_btn}
+				variant='raised'> Cancel </Button>
 		</div>
 	)
 }
 
-export default ProjectForm
+export default withStyles(styles)(ProjectForm)
