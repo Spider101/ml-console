@@ -16,7 +16,7 @@ class ProjectFormWrapper extends Component{
         super()
         this.state = {
             isValid: false,
-            form: {}
+			form: {}
         }
     }
     
@@ -45,9 +45,9 @@ class ProjectFormWrapper extends Component{
     }
     
     handleInputChange = (evt) => {
-        let form_clone = {...this.state.form}
-        form_clone[evt.target.name] = { 
-			...form_clone[evt.target.name],
+		let form_clone = {...this.state.form}
+        form_clone[evt.target.id] = { 
+			...form_clone[evt.target.id],
 			value: evt.target.value 
 		}
         this.setState({
@@ -91,15 +91,13 @@ class ProjectFormWrapper extends Component{
     }
     
 	render(){
-		const {
-			isHidden,
-			headerText
-		} = this.props
-		const form_component = <ProjectForm { ...this.state } heading={headerText}
-								handleCancel={ this.handleFormCancel }
-								handleSubmit={ this.handleFormSubmit }
-								handleChange={ this.handleInputChange }/>
-        return isHidden && form_component
+		return (
+			<ProjectForm { ...this.state } 
+				heading={this.props.headerText}
+				handleCancel={ this.handleFormCancel }
+				handleSubmit={ this.handleFormSubmit }
+				handleChange={ this.handleInputChange }/>
+		)
 		
     }
 }
