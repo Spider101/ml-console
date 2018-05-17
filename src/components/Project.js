@@ -1,58 +1,63 @@
-import React from 'react'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
+import React, { Component } from 'react'
+
+import Card, { CardHeader, CardContent } from 'material-ui/Card'
+import Menu, { MenuItem } from 'material-ui/Menu'
+import Icon from 'material-ui/Icon'
+import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
-import red from 'material-ui/colors/red'
-import yellow from 'material-ui/colors/yellow'
 
 import { withStyles } from 'material-ui/styles'
 
 const styles = theme => ({
 	card: {
-		margin: theme.spacing.unit
+		margin: theme.spacing.unit * 2,
+        width: 400
 	},
-	edit_btn:{
-		color: theme.palette.getContrastText(yellow[300]),
-		backgroundColor: yellow[300],
-		'&:hover': {
-		  backgroundColor: yellow[500]
-		}
-	},	
-	delete_btn:{
-		color: theme.palette.getContrastText(red[400]),
-		backgroundColor: red[400],
-		'&:hover': {
-		  backgroundColor: red[600]
-		}
-	}
+    card_content: {
+        paddingTop: 0
+    }
 })
 
-const Project = (props) => {
-    const { 
-		classes,
-        project, 
-        handleEdit, 
-        handleDelete
-    } =  props
-    
-    return (
-        <Card className={classes.card}> 
-        	<CardContent>
-        		<Typography variant="headline" component="h2">
-        			{project.name}
-        		</Typography>
-        		<Typography component="p"> {project.descr} </Typography>
-        	</CardContent>
-        	<CardActions>
-        		<Button onClick={() => handleEdit(project.id) }
-    				className={classes.edit_btn} 
-              		variant='raised'> Edit </Button>
-            	<Button onClick={() => handleDelete(project.id) } 
-    				className={classes.delete_btn} 
-					variant='raised'> Delete </Button>
-    		</CardActions>
-    	</Card> 
-	)
+class Project extends Component {
+    state = { anchorEl: null }
+
+    handleOpen = evt => this.setState({ anchorEl: evt.currentTarget })
+
+    handleClose = () => this.setState({ anchorEl: null })
+
+    render(){
+        const { 
+            classes,
+            data, 
+            handleEdit, 
+            handleDelete
+        } =  this.props
+        const { anchorEl } = this.state
+        
+        const cardMenu = (
+            <Menu id="simple-menu" anchorEl={ anchorEl }
+                open={ Boolean(anchorEl) } onClose={ this.handleClose } >
+                <MenuItem onClick={ () => handleEdit(data.id) } > Edit </MenuItem>
+                <MenuItem onClick={ () => handleDelete(data.id) } > Delete </MenuItem>
+            </Menu>
+        )
+
+        const cardActions = (
+            <IconButton onClick={ this.handleOpen }>
+                <Icon>more_vert</Icon>
+            </IconButton>
+        )
+
+        return (
+            <Card className={classes.card}> 
+                <CardHeader title={ data.name } action={ cardActions } />
+                { cardMenu }
+                <CardContent>
+                    <Typography> { data.descr } </Typography>
+                </CardContent>
+            </Card> 
+        )
+	}
 }
 
 export default withStyles(styles)(Project)
