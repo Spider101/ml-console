@@ -14,12 +14,12 @@ export const add_project = project => ({
 })
 
 export const init_edit_mode = id => ({
-    type: 'INIT_EDIT',
+    type: 'INIT_PROJECT_EDIT',
     payload: id
 })
 
 export const cancel_project_edit = () => ({
-    type: 'CANCEL_EDIT'
+    type: 'CANCEL_PROJECT_EDIT'
 })
 
 export const update_project = project => ({

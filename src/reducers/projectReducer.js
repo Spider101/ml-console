@@ -40,12 +40,12 @@ export default (state=default_state, action) => {
                     action.payload.data
                 ]
             }
-        case 'INIT_EDIT':
+        case 'INIT_PROJECT_EDIT':
             return {
                 ...state,
                 itemInEdit: [ ...state.items ].filter(item => item.id === action.payload)
             }
-        case 'CANCEL_EDIT':
+        case 'CANCEL_PROJECT_EDIT':
             return {
                 ...state,
                 itemInEdit: []
