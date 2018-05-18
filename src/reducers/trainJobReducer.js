@@ -1,6 +1,6 @@
 const default_state = {
-	jobs: [],
-	schema: [],
+	items: [],
+	schema: {}, 
     loading: false,
     error: null,
 	itemInEdit: []
@@ -16,8 +16,8 @@ export default (state=default_state, action) => {
 		case 'FETCH_TRAIN_JOBS_FULFILLED':
 			return {
 				...state,
-				items: action.payload.data.splice(1),
 				schema: action.payload.data[0],
+                items: action.payload.data.slice(1),
 				loading: false
 			}
 		case 'FETCH_TRAIN_JOBS_REJECTED':
@@ -40,12 +40,12 @@ export default (state=default_state, action) => {
 				],
 				loading: false
 			}
-		case 'INIT_EDIT':
+		case 'INIT_TRAIN_JOB_EDIT':
 			return {
 				...state,
 				itemInEdit: [ ...state.items ].filter(item => item.id === action.payload)
 			}
-		case 'CANCEL_EDIT':
+		case 'CANCEL_TRAIN_JOB_EDIT':
             return {
                 ...state,
                 itemInEdit: []

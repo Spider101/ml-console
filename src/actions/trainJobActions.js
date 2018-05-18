@@ -16,17 +16,17 @@ export const add_train_job = train_job => ({
 })
 
 export const init_edit_mode = id => ({
-    type: 'INIT_EDIT',
+    type: 'INIT_TRAIN_JOB_EDIT',
     payload: id
 })
 
-export const cancel_job_edit = () => ({
-    type: 'CANCEL_EDIT'
+export const cancel_train_job_edit = () => ({
+    type: 'CANCEL_TRAIN_JOB_EDIT'
 })
 
 export const update_train_job = train_job => ({
     type: 'UPDATE_TRAIN_JOB',
-    payload: axios.put(`${train_jobs}/${train_job.id}`)
+    payload: axios.put(`${train_jobs}/${train_job.id}`, train_job)
 })
 
 export const delete_train_job = id => ({

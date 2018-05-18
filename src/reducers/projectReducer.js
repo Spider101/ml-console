@@ -1,6 +1,6 @@
 const default_state = {
     items: [],
-    schema: [],
+    schema: {}, 
     loading: false,
     error: null,
     itemInEdit: []
@@ -16,8 +16,8 @@ export default (state=default_state, action) => {
         case 'FETCH_PROJECTS_FULFILLED':
            return { 
                 ...state, 
-                items: action.payload.data.splice(1),
                	schema: action.payload.data[0],
+                items: action.payload.data.slice(1),
                 loading: false
             }
         case 'FETCH_PROJECTS_REJECTED':
