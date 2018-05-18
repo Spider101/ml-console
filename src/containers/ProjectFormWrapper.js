@@ -1,33 +1,23 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import faker from 'faker'
+import flatten from 'flat'
+
 import ProjectForm from '../components/ProjectForm'
-import * as project from '../actions/projectActions'
-
-const mapStateToProps = state => ({ ...state.projects })
-
-const mapDispatchToProps = dispatch => ({
-    addProject: newProject => dispatch(project.add_project(newProject)),
-    updateProject: editedProject => dispatch(project.update_project(editedProject))
-})
 
 class ProjectFormWrapper extends Component{
-    constructor(){
-        super()
-        this.state = {
-            isValid: false,
-			form: {}
-        }
+    state = {
+        isValid: false,
+        form: {}
     }
     
     static getDerivedStateFromProps(nextProps, prevState){
-        let schema_clone = {...nextProps.schema}
+        let schema_clone = { ...nextProps.schema }
 		const schema_keys = Object.keys(schema_clone),
 			  form_keys = Object.keys(prevState.form)
 		
 		if(schema_keys.length > 0){
 			if(nextProps.itemInEdit.length > 0){
-				const itemInEdit = nextProps.itemInEdit[0]
+				const itemInEdit = flatten(nextProps.itemInEdit[0])
 				for(const key in schema_clone){
 					schema_clone[key].value = itemInEdit[key]
 				}
@@ -45,7 +35,7 @@ class ProjectFormWrapper extends Component{
     }
     
     handleInputChange = (evt) => {
-		let form_clone = {...this.state.form}
+		let form_clone = { ...this.state.form }
         form_clone[evt.target.id] = { 
 			...form_clone[evt.target.id],
 			value: evt.target.value 
@@ -66,7 +56,7 @@ class ProjectFormWrapper extends Component{
         return true
     }
     
-    handleFormCancel = () => {
+    handleFormClear = () => {
 		let form_clone = { ...this.state.form }
 		for(const key in form_clone){
 			form_clone[key].value = ''
@@ -76,16 +66,23 @@ class ProjectFormWrapper extends Component{
 	
 	handleFormSubmit = () => {
         if(this.state.isValid){
+            const {
+                itemInEdit,
+                updateItem,
+                addItem
+            } = this.props
             let form_data = {}
+
             for(let key in this.state.form){
                form_data[key] = this.state.form[key].value
             }
+            form_data = flatten.unflatten(form_data)
             
-			if(this.props.itemInEdit.length > 0){
-				this.props.updateProject(form_data)
+			if(itemInEdit.length > 0){
+                updateItem(form_data)
 			} else {
 				form_data['id'] = faker.random.uuid()
-				this.props.addProject(form_data)
+				addItem(form_data)
 			}
         }
     }
@@ -94,7 +91,7 @@ class ProjectFormWrapper extends Component{
 		return (
 			<ProjectForm { ...this.state } 
 				heading={this.props.headerText}
-				handleCancel={ this.handleFormCancel }
+				handleClear={ this.handleFormClear }
 				handleSubmit={ this.handleFormSubmit }
 				handleChange={ this.handleInputChange }/>
 		)
@@ -102,7 +99,4 @@ class ProjectFormWrapper extends Component{
     }
 }
 
-export default connect(
-	mapStateToProps,
-    mapDispatchToProps
-)(ProjectFormWrapper)
+export default ProjectFormWrapper

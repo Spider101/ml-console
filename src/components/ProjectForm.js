@@ -32,7 +32,7 @@ const ProjectForm = props => {
 		isValid, 
 		handleChange, 
 		heading,
-		handleCancel, 
+		handleClear, 
 		handleSubmit, 
 	} = props
 	
@@ -51,9 +51,9 @@ const ProjectForm = props => {
 			<Button onClick={ handleSubmit } color='primary'
 				variant='raised' className={classes.form_btn} 
 				disabled={ !isValid } > Submit </Button>
-			<Button onClick={ handleCancel }
+			<Button onClick={ handleClear }
 				className={classes.form_btn}
-				variant='raised'> Cancel </Button>
+				variant='raised'> Clear </Button>
 		</div>
 	)
 }
