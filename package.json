@@ -5,9 +5,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "faker": "^4.1.0",
+    "flat": "^4.0.0",
     "material-ui": "^1.0.0-beta.45",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-json-view": "^1.16.6",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
