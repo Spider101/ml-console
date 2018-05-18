@@ -36,7 +36,7 @@ class ProjectList extends Component{
     }
 	
 	componentWillMount(){
-        this.props.fetchProjects()
+        this.props.fetchItems()
     }
 	
 	handleOpen = () => {
@@ -91,7 +91,7 @@ class ProjectList extends Component{
                 </Button>
 				<Modal open={ this.state.isModalOpen }
 					onClose={ () => this.handleClose() }>
-					<ProjectFormWrapper 
+					<ProjectFormWrapper { ...this.props } 
 						headerText={ formHeading }/>
 				</Modal>	
 			</div>
