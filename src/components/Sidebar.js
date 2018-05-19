@@ -21,14 +21,14 @@ const Sidebar = props => (
     	<ListItem component={NavLink} exact to="/" 
     		activeClassName={ props.classes.activeAnchor } >
       		<ListItemIcon>
-        		<Icon> inbox </Icon>
+        		<Icon className={ 'fas fa-cubes' }> cubes </Icon>
          	</ListItemIcon>
     	  	<ListItemText primary="Projects" />
     	</ListItem>
     	<ListItem component={NavLink} to='/train_jobs'
     		activeClassName={ props.classes.activeAnchor } >
       		<ListItemIcon>
-        		<Icon> star </Icon>
+        		<Icon className={ 'fas fa-flask' }> flask </Icon>
       		</ListItemIcon>
       		<ListItemText primary="Training Jobs" />
     	</ListItem>
