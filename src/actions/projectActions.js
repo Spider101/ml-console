@@ -1,30 +1,33 @@
 import axios from 'axios'
+import api_endpoints from '../utils/api_endpoints'
 
-const server_uri = 'http://react-sandbox-banerjeeabhimanyu3120262.codeanyapp.com:3005'
-
-const api_endpoint = `${server_uri}/projects`
+const projects = api_endpoints.projects
 
 export const fetch_projects = () => ({
     type: 'FETCH_PROJECTS',
-    payload: axios.get(api_endpoint)
+    payload: axios.get(projects)
 })
    
 export const add_project = project => ({
     type: 'ADD_PROJECT',
-    payload: axios.post(api_endpoint, project)
+    payload: axios.post(projects, project)
 })
 
 export const init_edit_mode = id => ({
-    type: 'INIT_EDIT',
+    type: 'INIT_PROJECT_EDIT',
     payload: id
 })
 
-export const update_project = (project) => ({
+export const cancel_project_edit = () => ({
+    type: 'CANCEL_PROJECT_EDIT'
+})
+
+export const update_project = project => ({
     type: 'UPDATE_PROJECT',
-    payload: axios.put(api_endpoint + `/${project.id}`, project)
+    payload: axios.put(`${projects}/${project.id}`, project)
 })
 
 export const delete_project = id => ({
     type: 'DELETE_PROJECT',
-    payload: axios.delete(api_endpoint + `/${id}`)
+    payload: axios.delete(`${projects}/${id}`)
 })
