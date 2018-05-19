@@ -1,5 +1,6 @@
 import React, { Component }from 'react'
 import PropTypes from 'prop-types'
+import queryString from 'query-string'
 
 import Modal from 'material-ui/Modal'
 import { LinearProgress } from 'material-ui/Progress'
@@ -52,21 +53,33 @@ class ProjectList extends Component{
 	
 	handleClose = () => this.setState({ isModalOpen: false })
 
-	prepEditForm = id =>{
+	prepEditForm = id => {
 		this.props.initEditMode(id)
 		this.handleOpen()
 	}
 	
+    filterItems = (items, searchString) => {
+        const query = queryString.parse(searchString)
+        if(Object.keys(query).length > 0){
+            return [ ...items ].filter(item => item.project_id === query.projectId)
+        } else{
+            return items
+        }
+    }
+
    	render(){
         const {
             classes,
+            location,
             itemInEdit,
             items,
             deleteItem,
             loading,
             ...other
         } = this.props
-		
+
+        const filteredItems = this.filterItems(items, location.search)
+
         const formHeading = `${itemInEdit.length > 0 ? 'Edit' : 'Add'} Project`
         
         const loadingBar =  <LinearProgress classes={{ 
@@ -77,7 +90,7 @@ class ProjectList extends Component{
             <div>
                 { loading && loadingBar }
                 <Grid container spacing={0}>
-                    {items.map((entry, _idx) => (
+                    {filteredItems.map((entry, _idx) => (
                         <Grid key={ _idx } className={ classes.item } item xs>
                             <Item { ...other } data={entry}
                                 handleEdit={ id => this.prepEditForm(id) }

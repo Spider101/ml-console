@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
-import Card, { CardHeader, CardContent } from 'material-ui/Card'
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Icon from 'material-ui/Icon'
 import IconButton from 'material-ui/IconButton'
+import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 
 import { withStyles } from 'material-ui/styles'
@@ -13,8 +15,12 @@ const styles = theme => ({
 		margin: theme.spacing.unit * 2,
         width: 400
 	},
+    card_actions: {
+        padding: [[8, 4]]
+    },
     card_content: {
-        paddingTop: 0
+        paddingTop: 0,
+        paddingBottom: 0
     }
 })
 
@@ -49,12 +55,18 @@ class Project extends Component {
         )
 
         return (
-            <Card className={classes.card}> 
+            <Card className={ classes.card }> 
                 <CardHeader title={ data.name } action={ cardActions } />
                 { cardMenu }
-                <CardContent>
+                <CardContent className={ classes.card_content }>
                     <Typography> { data.descr } </Typography>
                 </CardContent>
+                <CardActions className={ classes.card_actions }>
+                    <Button size='medium' color='primary' component={ Link } 
+                        to={ `/train_jobs?projectId=${data.id}` }> Training Jobs </Button>
+                    <Button size='medium' color='primary' 
+                        href={ data.gh_url }> Learn More </Button>
+                </CardActions>
             </Card> 
         )
 	}

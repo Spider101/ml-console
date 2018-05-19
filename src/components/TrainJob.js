@@ -52,7 +52,7 @@ class TrainJob extends Component {
             <Card className={classes.card}> 
                 <CardHeader title={ data.name } action={ cardActions } />
                 { cardMenu }
-                <CardContent>
+                <CardContent className={ classes.card_content }>
                     <ReactJson src={ data } name={ false }
                         enableClipboard={ false } displayDataTypes={ false } />
                 </CardContent>
