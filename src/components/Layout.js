@@ -10,6 +10,7 @@ import { withStyles } from 'material-ui/styles'
 
 import ProjectListWrapper from '../containers/ProjectListWrapper'
 import TrainJobsListWrapper from '../containers/TrainJobsListWrapper'
+import EvaluationListWrapper from '../containers/EvaluationListWrapper'
 import Sidebar from '../components/Sidebar'
 
 const drawerWidth = 240
@@ -57,6 +58,7 @@ const Layout = props => {
                 <div className={ classes.toolbar } />
                 <Route exact path='/' component={ ProjectListWrapper } />
                 <Route path='/train_jobs' component={ TrainJobsListWrapper } />
+                <Route path='/evaluations' component={ EvaluationListWrapper } />
             </main>
         </div>
     )
