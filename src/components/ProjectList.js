@@ -61,7 +61,9 @@ class ProjectList extends Component{
     filterItems = (items, searchString) => {
         const query = queryString.parse(searchString)
         if(Object.keys(query).length > 0){
-            return [ ...items ].filter(item => item.project_id === query.projectId)
+            const queryKey = Object.keys(query)[0] 
+            const itemKey = queryKey === 'projectId' ? 'project_id' : 'job_id' 
+            return [ ...items ].filter(item => item[`${itemKey}`] === query[`${queryKey}`])
         } else{
             return items
         }
