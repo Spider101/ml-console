@@ -33,3 +33,8 @@ export const delete_evaluation = id => ({
     type: 'DELETE_EVALUATION',
     payload: axios.delete(`${evaluations}/${id}`)
 })
+
+export const fetch_evaluation = id => ({
+    type: 'FETCH_EVALUATION',
+    payload: axios.get(`${evaluations}/${id}`)
+})

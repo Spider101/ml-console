@@ -3,7 +3,8 @@ const default_state = {
 	schema: {}, 
     loading: false,
     error: null,
-	itemInEdit: []
+	itemInEdit: [],
+    itemLogs: {}
 }
 
 export default (state=default_state, action) => {
@@ -76,6 +77,17 @@ export default (state=default_state, action) => {
                 loading: false,
                 items: [ ...state.items ].filter(item => item.id !== itemId)
 			}          
+        case 'FETCH_EVALUATION_PENDING':
+			return {
+				...state,
+                loading: true,
+			}
+        case 'FETCH_EVALUATION_FULFILLED':
+            return{
+                ...state,
+                loading: false,
+                itemLogs: action.payload.data.logs
+            }
 		default:
 			return { ...state }
 	}
