@@ -12,7 +12,6 @@ import ProjectListWrapper from '../containers/ProjectListWrapper'
 import TrainJobsListWrapper from '../containers/TrainJobsListWrapper'
 import EvaluationListWrapper from '../containers/EvaluationListWrapper'
 import DashboardWrapper from '../containers/DashboardWrapper'
-// import PerformanceDash from '../components/PerformanceDash'
 import Sidebar from '../components/Sidebar'
 
 const drawerWidth = 240

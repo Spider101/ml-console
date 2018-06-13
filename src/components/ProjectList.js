@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import queryString from 'query-string'
 
 import Modal from 'material-ui/Modal'
-import { LinearProgress } from 'material-ui/Progress'
+import { CircularProgress } from 'material-ui/Progress'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import Icon from 'material-ui/Icon'
-import grey from 'material-ui/colors/grey'
 
 import { withStyles } from 'material-ui/styles'
 
@@ -15,11 +14,10 @@ import Item from './Item'
 import ProjectFormWrapper from '../containers/ProjectFormWrapper'
 
 const styles = theme => ({
-    colorPrimary: {
-        backgroundColor: grey[300]
-    },
-    barColorPrimary: {
-        backgroundColor: grey[900]
+    progress:{
+        position: 'absolute',
+        top: '45%',
+        left: '50%'
     },
     item: {
         flexGrow: 0
@@ -37,7 +35,7 @@ class ProjectList extends Component{
     }
 	
 	componentWillMount(){
-        this.props.fetchItems()
+        this.props.items.length === 0 && this.props.fetchItems()
     }
 	
 	handleOpen = () => {
@@ -84,10 +82,8 @@ class ProjectList extends Component{
 
         const formHeading = `${itemInEdit.length > 0 ? 'Edit' : 'Add'} Project`
         
-        const loadingBar =  <LinearProgress classes={{ 
-                                colorPrimary: classes.colorPrimary,
-                                barColorPrimary: classes.barColorPrimary
-                            }} />
+        const loadingBar =  <CircularProgress className={ classes.progress }
+                                size={100} thickness={2}/>
 		return (
             <div>
                 { loading && loadingBar }
