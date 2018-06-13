@@ -6,7 +6,7 @@ import PerformanceDash from '../components/PerformanceDash'
 const mapStateToProps = state => ({ ...state.evaluations })
 
 const mapDispatchToProps = dispatch => ({
-    fetchEval: evalId => dispatch(evaluation.fetch_evaluation(evalId))
+    fetchEvalLogs: evalId => dispatch(evaluation.fetch_eval_logs(evalId))
 })
 
 export default connect(

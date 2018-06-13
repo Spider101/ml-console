@@ -46,7 +46,7 @@ const styles = theme => ({
 
 class PerformanceDash extends Component {
     componentWillMount(){
-        this.props.fetchEval(this.props.match.params.evalId)
+        this.props.fetchEvalLogs(this.props.match.params.evalId)
     }
 
     goBack(){

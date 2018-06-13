@@ -77,12 +77,12 @@ export default (state=default_state, action) => {
                 loading: false,
                 items: [ ...state.items ].filter(item => item.id !== itemId)
 			}          
-        case 'FETCH_EVALUATION_PENDING':
+        case 'FETCH_EVAL_LOGS_PENDING':
 			return {
 				...state,
                 loading: true,
 			}
-        case 'FETCH_EVALUATION_FULFILLED':
+        case 'FETCH_EVAL_LOGS_FULFILLED':
             return{
                 ...state,
                 loading: false,

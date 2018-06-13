@@ -34,7 +34,7 @@ export const delete_evaluation = id => ({
     payload: axios.delete(`${evaluations}/${id}`)
 })
 
-export const fetch_evaluation = id => ({
-    type: 'FETCH_EVALUATION',
+export const fetch_eval_logs = id => ({
+    type: 'FETCH_EVAL_LOGS',
     payload: axios.get(`${evaluations}/${id}`)
 })
