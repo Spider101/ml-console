@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
@@ -31,6 +32,10 @@ const Evaluation = ({ classes, data, handleDelete }) => {
                 </Typography>
             </CardContent>
             <CardActions className={ classes.card_actions }>
+                <Button color='primary' size='medium'
+                    component={ Link } to={ `/evaluations/${data.id}/performance` }>
+                    Analyze Logs</Button>
+                <Button color='primary' size='medium'>View Predictions</Button>
                 <Button color='primary' size='medium'
                     onClick={ () => handleDelete(data.id) }>
                     Delete</Button>
