@@ -14,6 +14,10 @@ import Item from './Item'
 import ProjectFormWrapper from '../containers/ProjectFormWrapper'
 
 const styles = theme => ({
+    root:{
+        marginTop: theme.spacing.unit * 3,
+        marginLeft: theme.spacing.unit * 3
+    },
     progress:{
         position: 'absolute',
         top: '45%',
@@ -71,6 +75,7 @@ class ProjectList extends Component{
         const {
             classes,
             location,
+            itemType,
             itemInEdit,
             items,
             deleteItem,
@@ -80,24 +85,26 @@ class ProjectList extends Component{
 
         const filteredItems = this.filterItems(items, location.search)
 
-        const formHeading = `${itemInEdit.length > 0 ? 'Edit' : 'Add'} Project`
+        const formHeading = `${ itemInEdit.length > 0 ? 'Edit' : 'Add' } 
+            ${ itemType === 'project' ? 'Project': 'Train Job' }`
         
         const loadingBar =  <CircularProgress className={ classes.progress }
                                 size={100} thickness={2}/>
 		return (
-            <div>
+            <div className={ classes.root }>
                 { loading && loadingBar }
                 <Grid container spacing={0}>
                     {filteredItems.map((entry, _idx) => (
                         <Grid key={ _idx } className={ classes.item } item xs>
-                            <Item { ...other } data={entry}
+                            <Item { ...other } type={ itemType } data={ entry }
                                 handleEdit={ id => this.prepEditForm(id) }
                                 handleDelete={ id => deleteItem(id) }/>
                         </Grid>
                     ))}
                 </Grid>
                 <Button variant='fab' color="primary" className={classes.add_btn}
-                    aria-label="add" onClick={ () => this.handleOpen() }>
+                    aria-label="add" onClick={ () => this.handleOpen() }
+                    disabled={ itemType === 'evaluation' }>
                     <Icon> add </Icon>
                 </Button>
 				<Modal open={ this.state.isModalOpen }
