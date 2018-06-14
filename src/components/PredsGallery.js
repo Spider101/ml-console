@@ -11,6 +11,7 @@ import { withStyles } from 'material-ui/styles'
 const styles = theme => ({
     root:{
         marginTop: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
         marginLeft: theme.spacing.unit * 3
     },
     heading:{
@@ -58,7 +59,7 @@ class PredsGallery extends Component {
                         <IconButton color='primary' onClick={ () => this.goBack() }>
                             <Icon>arrow_back</Icon>
                         </IconButton>
-                        <Typography variant='headline' gutterBottom color='textSecondary'
+                        <Typography variant='headline' gutterBottom color='initial'
                             className={ classes.heading }> Model Predictions</Typography>
                             <GridList className={ classes.gridList } cols={ 2.5 }>
                                 {itemPreds.map((img_url, _idx) => (

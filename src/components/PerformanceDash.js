@@ -71,7 +71,7 @@ class PerformanceDash extends Component {
                         <IconButton color='primary' onClick={ () => this.goBack() }>
                             <Icon>arrow_back</Icon>
                         </IconButton>
-                        <Typography variant='headline' gutterBottom color='textSecondary'
+                        <Typography variant='headline' gutterBottom color='initial'
                             className={ classes.heading }> Model Performance</Typography>
                         <Grid container spacing={0}>
                             <Grid className={ classes.item } item xs>

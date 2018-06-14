@@ -1,10 +1,28 @@
 import React from 'react'
+
+import { withStyles } from 'material-ui/styles'
+
 import Project from './Project'
 import TrainJob from './TrainJob'
 import Evaluation from './Evaluation'
 
-export default props => {
-    switch(props.itemType){
+const styles = theme => ({
+	card: {
+		marginRight: theme.spacing.unit * 3,
+		marginBottom: theme.spacing.unit * 3,
+        width: 515
+	},
+    card_actions: {
+        padding: [[8, 4]]
+    },
+    card_content: {
+        paddingTop: 0,
+        paddingBottom: 0
+    }
+})
+
+const switchComponent = props => {
+    switch(props.type){
         case 'project':
             return <Project { ...props } />
         case 'train_job':
@@ -15,3 +33,5 @@ export default props => {
             return <Project { ...props } />
     }
 }
+
+export default withStyles(styles)(props =>  ( switchComponent(props) ))

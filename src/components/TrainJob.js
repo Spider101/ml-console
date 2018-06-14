@@ -7,22 +7,7 @@ import Menu, { MenuItem } from 'material-ui/Menu'
 import Icon from 'material-ui/Icon'
 import IconButton from 'material-ui/IconButton'
 import Button from 'material-ui/Button'
-
-import { withStyles } from 'material-ui/styles'
-
-const styles = theme => ({
-	card: {
-		margin: theme.spacing.unit * 2,
-        width: 400
-	},
-    card_content: {
-        paddingTop: 0,
-        paddingBottom: 0
-    },
-    card_actions: {
-        padding: [[8, 0]]
-    }
-})
+import Typography from 'material-ui/Typography'
 
 class TrainJob extends Component {
     state = { anchorEl: null }
@@ -56,7 +41,9 @@ class TrainJob extends Component {
 
         return (
             <Card className={classes.card}> 
-                <CardHeader title={ data.name } action={ cardActions } />
+                <CardHeader action={ cardActions } title={
+                    <Typography variant='title'> { data.name }</Typography>
+                }/>
                 { cardMenu }
                 <CardContent className={ classes.card_content }>
                     <ReactJson src={ data } name={ false }
@@ -71,4 +58,4 @@ class TrainJob extends Component {
 	}
 }
 
-export default withStyles(styles)(TrainJob)
+export default TrainJob
