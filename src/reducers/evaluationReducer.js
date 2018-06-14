@@ -4,7 +4,8 @@ const default_state = {
     loading: false,
     error: null,
 	itemInEdit: [],
-    itemLogs: {}
+    itemLogs: {},
+    itemPreds: []
 }
 
 export default (state=default_state, action) => {
@@ -87,6 +88,17 @@ export default (state=default_state, action) => {
                 ...state,
                 loading: false,
                 itemLogs: action.payload.data.logs
+            }
+        case 'FETCH_EVAL_PREDS_PENDING':
+			return {
+				...state,
+                loading: true,
+			}
+        case 'FETCH_EVAL_PREDS_FULFILLED':
+            return{
+                ...state,
+                loading: false,
+                itemPreds: action.payload.data.img_urls
             }
 		default:
 			return { ...state }
