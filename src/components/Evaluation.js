@@ -35,7 +35,9 @@ const Evaluation = ({ classes, data, handleDelete }) => {
                 <Button color='primary' size='medium'
                     component={ Link } to={ `/evaluations/${data.id}/performance` }>
                     Analyze Logs</Button>
-                <Button color='primary' size='medium'>View Predictions</Button>
+                <Button color='primary' size='medium'
+                    component={ Link } to={ `/evaluations/${data.id}/predictions` }>
+                    View Predictions</Button>
                 <Button color='primary' size='medium'
                     onClick={ () => handleDelete(data.id) }>
                     Delete</Button>

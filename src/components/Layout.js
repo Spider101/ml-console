@@ -12,6 +12,7 @@ import ProjectListWrapper from '../containers/ProjectListWrapper'
 import TrainJobsListWrapper from '../containers/TrainJobsListWrapper'
 import EvaluationListWrapper from '../containers/EvaluationListWrapper'
 import DashboardWrapper from '../containers/DashboardWrapper'
+import PredictionsWrapper from '../containers/PredictionsWrapper'
 import Sidebar from '../components/Sidebar'
 
 const drawerWidth = 240
@@ -61,6 +62,7 @@ const Layout = props => {
                 <Route path='/train_jobs' component={ TrainJobsListWrapper } />
                 <Route exact path='/evaluations' component={ EvaluationListWrapper } />
                 <Route path='/evaluations/:evalId/performance' component={ DashboardWrapper } />
+                <Route path='/evaluations/:evalId/predictions' component={ PredictionsWrapper } />
             </main>
         </div>
     )
