@@ -85,9 +85,6 @@ class ProjectList extends Component{
 
         const filteredItems = this.filterItems(items, location.search)
 
-        const formHeading = `${ itemInEdit.length > 0 ? 'Edit' : 'Add' } 
-            ${ itemType === 'project' ? 'Project': 'Train Job' }`
-        
         const loadingBar =  <CircularProgress className={ classes.progress }
                                 size={100} thickness={2}/>
 		return (
@@ -109,8 +106,8 @@ class ProjectList extends Component{
                 </Button>
 				<Modal open={ this.state.isModalOpen }
 					onClose={ () => this.handleClose() }>
-					<ProjectFormWrapper { ...this.props } 
-						headerText={ formHeading }/>
+					<ProjectFormWrapper formData={ itemInEdit }  
+                        dataType={ itemType } { ...other }/>
 				</Modal>	
 			</div>
 		)

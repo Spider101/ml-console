@@ -16,10 +16,10 @@ class ProjectFormWrapper extends Component{
 			  form_keys = Object.keys(prevState.form)
 		
 		if(schema_keys.length > 0){
-			if(nextProps.itemInEdit.length > 0){
-				const itemInEdit = flatten(nextProps.itemInEdit[0])
+			if(nextProps.formData.length > 0){
+				const formData = flatten(nextProps.formData[0])
 				for(const key in schema_clone){
-					schema_clone[key].value = itemInEdit[key]
+					schema_clone[key].value = formData[key]
 				}
 				return { form: schema_clone, isValid: true }
 			} else if(form_keys.length === 0){
@@ -67,7 +67,7 @@ class ProjectFormWrapper extends Component{
 	handleFormSubmit = () => {
         if(this.state.isValid){
             const {
-                itemInEdit,
+                formData,
                 updateItem,
                 addItem
             } = this.props
@@ -78,7 +78,7 @@ class ProjectFormWrapper extends Component{
             }
             form_data = flatten.unflatten(form_data)
             
-			if(itemInEdit.length > 0){
+			if(formData.length > 0){
                 updateItem(form_data)
 			} else {
 				form_data['id'] = faker.random.uuid()
@@ -88,9 +88,17 @@ class ProjectFormWrapper extends Component{
     }
     
 	render(){
-		return (
+        const {
+            formData,
+            dataType
+        } = this.props
+
+        const formHeading = `${ formData.length > 0 ? 'Edit' : 'Add' } 
+            ${ dataType === 'project' ? 'Project': 'Train Job' }`
+		
+        return (
 			<ProjectForm { ...this.state } 
-				heading={this.props.headerText}
+				heading={ formHeading }
 				handleClear={ this.handleFormClear }
 				handleSubmit={ this.handleFormSubmit }
 				handleChange={ this.handleInputChange }/>
