@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import * as trainJob from '../actions/trainJobActions'
-import ProjectList from '../components/ProjectList'
+import ItemList from '../components/ItemList'
 
 const mapStateToProps = state => ({ ...state.train_jobs, itemType: 'train_job' })
 
@@ -17,4 +17,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProjectList)
+)(ItemList)

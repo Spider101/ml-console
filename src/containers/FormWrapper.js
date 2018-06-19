@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import faker from 'faker'
 import flatten from 'flat'
 
-import ProjectForm from '../components/ProjectForm'
+import Form from '../components/Form'
 
-class ProjectFormWrapper extends Component{
+class FormWrapper extends Component{
     state = {
         isValid: false,
         form: {}
     }
     
     static getDerivedStateFromProps(nextProps, prevState){
-        let schema_clone = { ...nextProps.schema }
+        let schema_clone = { ...nextProps.dataShape }
 		const schema_keys = Object.keys(schema_clone),
 			  form_keys = Object.keys(prevState.form)
 		
@@ -97,8 +97,7 @@ class ProjectFormWrapper extends Component{
             ${ dataType === 'project' ? 'Project': 'Train Job' }`
 		
         return (
-			<ProjectForm { ...this.state } 
-				heading={ formHeading }
+			<Form { ...this.state } heading={ formHeading }
 				handleClear={ this.handleFormClear }
 				handleSubmit={ this.handleFormSubmit }
 				handleChange={ this.handleInputChange }/>
@@ -107,4 +106,4 @@ class ProjectFormWrapper extends Component{
     }
 }
 
-export default ProjectFormWrapper
+export default FormWrapper

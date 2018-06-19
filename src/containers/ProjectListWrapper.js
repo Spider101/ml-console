@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import * as project from '../actions/projectActions'
-import ProjectList from '../components/ProjectList'
+import ItemList from '../components/ItemList'
 
 const mapStateToProps = state => ({ ...state.projects, itemType: 'project' })
 
@@ -17,4 +17,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProjectList)
+)(ItemList)
