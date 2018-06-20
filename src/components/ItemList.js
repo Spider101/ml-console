@@ -139,7 +139,6 @@ class ItemList extends Component{
                 </Button>
                 <Modal open={ isModalOpen } close={ () => this.handleClose() }>
                     { formType === 'crud' ? crudForm : metaForm }
-                        
 				</Modal>	
 			</div>
 		)

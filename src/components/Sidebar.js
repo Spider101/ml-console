@@ -4,8 +4,6 @@ import { NavLink } from 'react-router-dom'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import Icon from 'material-ui/Icon'
 
-import blue from 'material-ui/colors/blue'
-
 import { withStyles } from 'material-ui/styles'
 
 const styles = theme => ({
@@ -15,7 +13,7 @@ const styles = theme => ({
     },
     activeAnchor: {
         '& span, div h3': {
-            color: blue[800]
+            color: theme.palette.primary.main 
         }
     }
 })
