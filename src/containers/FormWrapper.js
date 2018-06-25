@@ -2,24 +2,24 @@ import React, { Component } from 'react'
 import faker from 'faker'
 import flatten from 'flat'
 
-import ProjectForm from '../components/ProjectForm'
+import Form from '../components/Form'
 
-class ProjectFormWrapper extends Component{
+class FormWrapper extends Component{
     state = {
         isValid: false,
         form: {}
     }
     
     static getDerivedStateFromProps(nextProps, prevState){
-        let schema_clone = { ...nextProps.schema }
+        let schema_clone = { ...nextProps.dataShape }
 		const schema_keys = Object.keys(schema_clone),
 			  form_keys = Object.keys(prevState.form)
 		
 		if(schema_keys.length > 0){
-			if(nextProps.itemInEdit.length > 0){
-				const itemInEdit = flatten(nextProps.itemInEdit[0])
+			if(nextProps.formData.length > 0){
+				const formData = flatten(nextProps.formData[0])
 				for(const key in schema_clone){
-					schema_clone[key].value = itemInEdit[key]
+					schema_clone[key].value = formData[key]
 				}
 				return { form: schema_clone, isValid: true }
 			} else if(form_keys.length === 0){
@@ -67,7 +67,7 @@ class ProjectFormWrapper extends Component{
 	handleFormSubmit = () => {
         if(this.state.isValid){
             const {
-                itemInEdit,
+                formData,
                 updateItem,
                 addItem
             } = this.props
@@ -78,7 +78,7 @@ class ProjectFormWrapper extends Component{
             }
             form_data = flatten.unflatten(form_data)
             
-			if(itemInEdit.length > 0){
+			if(formData.length > 0){
                 updateItem(form_data)
 			} else {
 				form_data['id'] = faker.random.uuid()
@@ -88,9 +88,16 @@ class ProjectFormWrapper extends Component{
     }
     
 	render(){
-		return (
-			<ProjectForm { ...this.state } 
-				heading={this.props.headerText}
+        const {
+            formData,
+            dataType
+        } = this.props
+
+        const formHeading = `${ formData.length > 0 ? 'Edit' : 'Add' } 
+            ${ dataType === 'project' ? 'Project': 'Train Job' }`
+		
+        return (
+			<Form { ...this.state } heading={ formHeading }
 				handleClear={ this.handleFormClear }
 				handleSubmit={ this.handleFormSubmit }
 				handleChange={ this.handleInputChange }/>
@@ -99,4 +106,4 @@ class ProjectFormWrapper extends Component{
     }
 }
 
-export default ProjectFormWrapper
+export default FormWrapper

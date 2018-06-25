@@ -8,22 +8,6 @@ import IconButton from 'material-ui/IconButton'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 
-import { withStyles } from 'material-ui/styles'
-
-const styles = theme => ({
-	card: {
-		margin: theme.spacing.unit * 2,
-        width: 400
-	},
-    card_actions: {
-        padding: [[8, 4]]
-    },
-    card_content: {
-        paddingTop: 0,
-        paddingBottom: 0
-    }
-})
-
 class Project extends Component {
     state = { anchorEl: null }
 
@@ -56,7 +40,9 @@ class Project extends Component {
 
         return (
             <Card className={ classes.card }> 
-                <CardHeader title={ data.name } action={ cardActions } />
+                <CardHeader action={ cardActions } title={
+                    <Typography variant='title'> { data.name }</Typography>
+                }/>
                 { cardMenu }
                 <CardContent className={ classes.card_content }>
                     <Typography> { data.descr } </Typography>
@@ -72,4 +58,4 @@ class Project extends Component {
 	}
 }
 
-export default withStyles(styles)(Project)
+export default Project

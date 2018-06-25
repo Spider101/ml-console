@@ -25,7 +25,7 @@ const styles = theme => ({
 	}
 })
 
-const ProjectForm = props => {
+const Form = props => {
 	const {
 		classes,
 		form, 
@@ -58,4 +58,4 @@ const ProjectForm = props => {
 	)
 }
 
-export default withStyles(styles)(ProjectForm)
+export default withStyles(styles)(Form)
