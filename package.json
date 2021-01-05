@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^1.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.7.2",
     "faker": "^4.1.0",
     "flat": "^4.0.0",
